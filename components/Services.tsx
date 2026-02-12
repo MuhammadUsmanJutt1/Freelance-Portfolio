@@ -29,24 +29,28 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
-      </div>
-
+    <section id="services" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">What We Offer</span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 mt-2">Our Services</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive digital solutions tailored to your business needs
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="text-primary font-semibold text-sm uppercase tracking-wider inline-block mb-4"
+          >
+            Our Expertise
+          </motion.span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+            <span className="text-gray-900">What We </span>
+            <span className="text-gradient">Offer</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+            Whether you need a new website, a mobile app, or advanced messaging services, we're here to help
           </p>
         </motion.div>
 
@@ -54,58 +58,79 @@ export default function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="glassmorphism rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+              initial={{ opacity: 0, scale: 0.5, y: 50 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                delay: index * 0.15,
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
+              whileHover={{ 
+                y: -12,
+                transition: { duration: 0.3 }
+              }}
+              className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-gray-100"
             >
-              {/* Gradient overlay on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
-              
-              <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+              <motion.div 
+                whileHover={{ 
+                  rotate: [0, -10, 10, -10, 0],
+                  scale: 1.1
+                }}
+                transition={{ duration: 0.5 }}
+                className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}
+              >
                 <service.icon className="text-white" size={32} />
-              </div>
+              </motion.div>
               
-              <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary transition-colors">{service.title}</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed font-light">{service.description}</p>
               
               <ul className="space-y-3">
-                {service.features.map((feature) => (
-                  <li key={feature} className="flex items-start text-sm text-gray-700">
+                {service.features.map((feature, featureIndex) => (
+                  <motion.li 
+                    key={feature}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.15 + featureIndex * 0.1,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    className="flex items-start text-sm text-gray-700"
+                  >
                     <CheckCircle2 size={18} className="text-primary mr-2 mt-0.5 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </li>
+                    <span className="font-light">{feature}</span>
+                  </motion.li>
                 ))}
               </ul>
-
-              <button className="mt-6 text-primary font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
-                Learn More
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </button>
             </motion.div>
           ))}
         </div>
 
         {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          transition={{ delay: 0.5 }}
+          className="mt-20 text-center"
         >
-          <div className="glassmorphism rounded-2xl p-8 md:p-12 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold mb-4">Ready to Scale Your Business?</h3>
-            <p className="text-gray-600 mb-6 text-lg">
+          <div className="bg-gradient-to-br from-purple-50 to-white rounded-3xl p-12 md:p-16 max-w-4xl mx-auto shadow-lg border border-purple-100">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Ready to Scale Your Business?</h3>
+            <p className="text-gray-600 mb-8 text-lg font-light max-w-2xl mx-auto">
               Let's discuss how we can help you achieve your goals with our proven strategies
             </p>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="gradient-purple text-white px-8 py-4 rounded-full font-semibold hover:opacity-90 hover:scale-105 transition-all shadow-lg"
+              className="gradient-purple text-white px-10 py-4 rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-xl hover:shadow-2xl"
             >
               Get Started Today
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </div>

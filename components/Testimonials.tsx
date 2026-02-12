@@ -57,17 +57,50 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="glassmorphism rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative"
+              initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                delay: index * 0.2,
+                type: "spring",
+                stiffness: 150,
+                damping: 15
+              }}
+              whileHover={{ 
+                y: -10,
+                scale: 1.03,
+                transition: { duration: 0.3 }
+              }}
+              className="glassmorphism rounded-2xl p-8 hover:shadow-xl transition-all duration-300 relative cursor-pointer"
             >
-              <Quote className="absolute top-6 right-6 text-primary opacity-20" size={48} />
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  delay: index * 0.2 + 0.2,
+                  type: "spring",
+                  stiffness: 200
+                }}
+              >
+                <Quote className="absolute top-6 right-6 text-primary opacity-20" size={48} />
+              </motion.div>
               
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} size={16} className="text-yellow-500 fill-yellow-500" />
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.2 + i * 0.1,
+                      type: "spring",
+                      stiffness: 300
+                    }}
+                  >
+                    <Star size={16} className="text-yellow-500 fill-yellow-500" />
+                  </motion.div>
                 ))}
               </div>
 
@@ -76,9 +109,20 @@ export default function Testimonials() {
               </p>
 
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-white font-bold">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    delay: index * 0.2 + 0.4,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                  whileHover={{ rotate: 360 }}
+                  className="w-12 h-12 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center text-white font-bold"
+                >
                   {testimonial.image}
-                </div>
+                </motion.div>
                 <div>
                   <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
                   <p className="text-sm text-gray-600">{testimonial.role}</p>

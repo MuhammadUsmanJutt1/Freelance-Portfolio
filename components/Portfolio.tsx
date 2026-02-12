@@ -99,41 +99,72 @@ export default function Portfolio() {
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="glassmorphism rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, scale: 0.5, rotateY: -30 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 150,
+                damping: 15
+              }}
+              whileHover={{ 
+                y: -15,
+                scale: 1.03,
+                transition: { duration: 0.3 }
+              }}
+              className="glassmorphism rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-300 cursor-pointer"
             >
               <div className={`relative h-48 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div 
+                  initial={{ scale: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
                   <div className="text-white text-7xl font-bold opacity-20">
                     {project.title.charAt(0)}
                   </div>
-                </div>
+                </motion.div>
                 
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100">
-                  <a
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-4"
+                >
+                  <motion.a
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
                     href={project.liveUrl}
-                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center"
                   >
                     <ExternalLink size={20} className="text-gray-900" />
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.2, rotate: -5 }}
+                    whileTap={{ scale: 0.9 }}
                     href={project.githubUrl}
-                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center"
                   >
                     <Github size={20} className="text-gray-900" />
-                  </a>
-                </div>
+                  </motion.a>
+                </motion.div>
 
                 {/* Stats badge */}
-                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 flex items-center gap-1 shadow-lg">
+                <motion.div 
+                  initial={{ scale: 0, rotate: -180 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{ 
+                    delay: index * 0.1 + 0.3,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                  className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 flex items-center gap-1 shadow-lg"
+                >
                   <Star size={14} className="text-yellow-500 fill-yellow-500" />
                   <span className="text-sm font-semibold">{project.stats.rating}</span>
-                </div>
+                </motion.div>
               </div>
 
               <div className="p-6">
@@ -142,13 +173,22 @@ export default function Portfolio() {
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed">{project.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span
+                  {project.tags.map((tag, tagIndex) => (
+                    <motion.span
                       key={tag}
-                      className="px-3 py-1 bg-purple-100 text-primary text-xs rounded-full font-medium"
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        delay: index * 0.1 + tagIndex * 0.05,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                      whileHover={{ scale: 1.1 }}
+                      className="px-3 py-1 bg-purple-100 text-primary text-xs rounded-full font-medium cursor-pointer"
                     >
                       {tag}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
 
@@ -157,18 +197,22 @@ export default function Portfolio() {
                     {Object.entries(project.stats)[0][1]} {Object.entries(project.stats)[0][0]}
                   </div>
                   <div className="flex gap-3">
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
                       href={project.liveUrl}
                       className="text-primary hover:text-primary-dark transition-colors"
                     >
                       <ExternalLink size={18} />
-                    </a>
-                    <a
+                    </motion.a>
+                    <motion.a
+                      whileHover={{ scale: 1.2, rotate: -5 }}
+                      whileTap={{ scale: 0.9 }}
                       href={project.githubUrl}
                       className="text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       <Github size={18} />
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </div>

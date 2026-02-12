@@ -11,55 +11,76 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #ffffff;
   }
 }
 
 @layer utilities {
   .glassmorphism {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(109, 40, 217, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(109, 40, 217, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(109, 40, 217, 0.08);
   }
 
   .gradient-purple {
-    background: linear-gradient(135deg, #6D28D9 0%, #9333EA 100%);
+    background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #C084FC 100%);
+  }
+
+  .gradient-bg {
+    background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 50%, #F3E8FF 100%);
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #6D28D9 0%, #9333EA 100%);
+    background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(109, 40, 217, 0.15);
+  }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Ideationtec style */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #F9FAFB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #6D28D9 0%, #9333EA 100%);
-  border-radius: 5px;
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5B21B6;
+  background: linear-gradient(135deg, #6D28D9 0%, #9333EA 100%);
 }
 
 /* Selection color */
 ::selection {
-  background-color: #6D28D9;
+  background-color: #A855F7;
   color: white;
 }
 
 ::-moz-selection {
-  background-color: #6D28D9;
+  background-color: #A855F7;
   color: white;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
